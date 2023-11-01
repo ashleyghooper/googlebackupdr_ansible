@@ -6,7 +6,6 @@
 # (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
-import requests
 
 __metaclass__ = type
 
@@ -84,6 +83,8 @@ EXAMPLES = r"""
 # TODO: Add Ansible module RETURN section
 
 from ansible.module_utils.basic import AnsibleModule
+import requests
+
 
 
 class Backup(object):
@@ -140,7 +141,7 @@ class Backup(object):
         try:
             pol_id = [p["id"] for p in pol_resp.json()["items"] if p["name"] == policy_name][0]
         except Exception:
-            module.fail_json(msg=f"Failed to retrieve SLA template '{template_name}'")
+            module.fail_json(msg=f"Failed to retrieve SLA template policy '{policy_name}' for SLA template '{template_name}'")
 
         app_resp = requests.get(f"{api_url}/application", headers=headers)
         try:
